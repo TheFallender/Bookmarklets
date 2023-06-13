@@ -71,7 +71,7 @@ def main():
         script_contents.append(ScriptContent(file.stem, contents))
 
     # Loop through the script contents and write them to a single file
-    with open("bookmarklets.txt", "a") as f:
+    with open("bookmarklets.txt", "w") as f:
         f.write("Bookmarklets:\n")
         f.write("\n")
         for script_content in script_contents:
