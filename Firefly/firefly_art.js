@@ -1,5 +1,5 @@
 /* Get Art list and prompt */
-let art_list = document.querySelectorAll('main > div > div > div')
+let art_list = document.querySelectorAll('main > div > div > div');
 let prompt = document.querySelector('textarea[aria-label]');
 
 /* Create the fake link */
