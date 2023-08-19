@@ -29,24 +29,29 @@ const filterType = validPrompt("Filter you want to apply:\n1. Year.\n2. Score");
 /* Apply the filter */
 let filteredList = null;
 let excludedElements = null;
+let filterApplied = null;
 if (filterType === 1) {
-    const year = validPrompt("Year you want to get:");
-    filteredList = gamesList.filter((game) => {return game.date.includes(year)}).reverse();
-    excludedElements = gamesList.filter((game) => {return !game.date.includes(year)});
+    filterApplied = validPrompt("Year you want to get:");
+    filteredList = gamesList.filter((game) => {return game.date.includes(filterApplied)}).reverse();
+    excludedElements = gamesList.filter((game) => {return !game.date.includes(filterApplied)});
 } else if (filterType === 2) {
-    const score = validPrompt("Score you want to get:");
-    filteredList = gamesList.filter((game) => {return game.score.split('/')[0] == score});
-    excludedElements = gamesList.filter((game) => {return game.score.split('/')[0] != score});
+    filterApplied = validPrompt("Score you want to get:");
+    filteredList = gamesList.filter((game) => {return game.score.split('/')[0] == filterApplied});
+    excludedElements = gamesList.filter((game) => {return game.score.split('/')[0] != filterApplied});
 } else {
     alert("Not a valid input.");
 };
 
 /* Print the filteredList in a cool way */
-let printList = `Filtered list (${filteredList.length} games):\n`;
+const listHeader = `Filtered list with ${filteredList.length} games. ${filterType === 1 ? "Year" : "Score"} ${filterApplied}`;
+let printList = `${listHeader}\n`;
 filteredList.forEach((game, index) => {
     printList += `${index + 1} => ${game.gameName}\n\t\t${game.score}\n\t\t${game.date}\n`;
 });
 console.log(printList);
+
+/* Change the table header */
+document.querySelector("table > thead > tr").childNodes[0].textContent = listHeader;
 
 /* Hide the excluded elements */
 excludedElements.forEach((game) => {
